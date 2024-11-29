@@ -1,11 +1,20 @@
 import express from "express";
-import dotenv from "dotenv";
+import  "dotenv/config";
+import bodyParser from "body-parser";
+import postRoute from "../src/routes/post.route";
 
-dotenv.config();
+
 
 const app = express();
 const port = process.env.PORT;
 
+
+app.use(express.json());
+app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+
+
+app.use("/post", postRoute);
 
 
 
