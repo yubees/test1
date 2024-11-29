@@ -2,6 +2,8 @@ import express from "express";
 import  "dotenv/config";
 import bodyParser from "body-parser";
 import postRoute from "../src/routes/post.route";
+import cors from "cors";
+
 
 
 
@@ -13,6 +15,12 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(
+  cors({
+    origin: process.env.API!,
+    credentials: true,
+  })
+);
 
 app.use("/post", postRoute);
 
