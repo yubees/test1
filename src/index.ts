@@ -32,7 +32,7 @@ app.listen(port, async () => {
       console.log(`Server is running on port ${port}`);
   
       app.get("/", (req, res) => {
-        res.send("server running");
+        res.send("server running !!");
       });
     } catch (error) {
       console.log("Error");
