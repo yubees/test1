@@ -2,6 +2,7 @@ import express from "express";
 import  "dotenv/config";
 import bodyParser from "body-parser";
 import postRoute from "../src/routes/post.route";
+import authRoute from "../src/routes/auth.route";
 import cors from "cors";
 
 
@@ -22,6 +23,8 @@ app.use(
   })
 );
 
+
+app.use("/auth", authRoute);
 app.use("/post", postRoute);
 
 
