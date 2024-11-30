@@ -4,12 +4,15 @@ import bodyParser from "body-parser";
 import postRoute from "../src/routes/post.route";
 import authRoute from "../src/routes/auth.route";
 import cors from "cors";
+import session from "express-session";
+
 
 
 
 
 const app = express();
 const port = process.env.PORT;
+
 
 
 app.use(express.json());
@@ -23,6 +26,13 @@ app.use(
   })
 );
 
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET!,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 app.use("/auth", authRoute);
 app.use("/post", postRoute);
