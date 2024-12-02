@@ -111,7 +111,7 @@ const getUser = async (req: Request, res: Response): Promise<void> => {
       res.status(200).json({
         message: "User registered successfully",
         userId: token,
-        user: user.fullName,
+        user: userData.name || userData.login,
       });
     }
   } catch (error) {
