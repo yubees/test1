@@ -203,7 +203,7 @@ const googleAuth = async (req: Request, res: Response): Promise<void> => {
     res.status(200).json({
       message: "User registered successfully",
       userId: tokenValue,
-      user: user.fullName,
+      user: payload?.name,
     });
   } catch (error) {
     console.error("Error verifying Google token:", error);
