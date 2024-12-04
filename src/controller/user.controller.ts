@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import db from "../db";
-import { UserTable } from "../schema/schema";
-import { eq } from "drizzle-orm";
+import { PostTable, UserTable } from "../schema/schema";
+import { eq, sql } from "drizzle-orm";
 import jwt, { JwtPayload } from "jsonwebtoken";
 
 interface JwtPayloadWithUserId extends JwtPayload {
