@@ -12,13 +12,22 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 const getUser = async (req: Request, res: Response): Promise<void> => {
   try {
-    const allUsers = await db.select().from(UserTable);
-    if (allUsers.length === 0) {
-      res.json({ message: "There are no users", allUsers });
+    const usersWithPostCounts = await db
+    .select({
+      userId: UserTable.id,
+      fullName: UserTable.fullName,
+      avatarLink:UserTable.avatarLink,
+      postCount: sql`COUNT(${PostTable.id})`.as("postCount"), // Aggregate function
+    })
+    .from(UserTable)
+    .leftJoin(PostTable, sql`${PostTable.authorId} = ${UserTable.id}`)
+    .groupBy(UserTable.id, UserTable.fullName,UserTable.avatarLink);
+    if (usersWithPostCounts.length === 0) {
+      res.json({ message: "There are no users", users: [] });
       return;
     }
 
-    res.json({ users: allUsers });
+    res.json({ users: usersWithPostCounts });
   } catch (error) {
     if (error instanceof Error) {
       res.status(500).json({ message: error.message });
